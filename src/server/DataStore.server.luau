@@ -15,7 +15,7 @@ game.Players.PlayerAdded:Connect(function(player)
 	-- load data --
 	
 	local data
-	local success, errormessage = pcall(function()
+	local success, _ = pcall(function()
 		data = DataStore:GetAsync(PlayerUserId)
 	end)
 	
@@ -34,7 +34,7 @@ game.Players.PlayerRemoving:Connect(function(player)
 		Cash = player.leaderstats.Cash.Value
 	}
 	
-	local success , errormessage = pcall(function()
+	local _ , _ = pcall(function()
 		DataStore:SetAsync(PlayerUserId,data)
 	end)
 

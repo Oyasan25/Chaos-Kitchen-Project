@@ -4,9 +4,11 @@ local Mouse = Player:GetMouse()
 local CollectionService = game:GetService("CollectionService")
 
 Mouse.Move:Connect(function()
-	
-	if not Mouse.Target then script.Highlight.Adornee = nil return end
-	
+	if not Mouse.Target then
+		script.Highlight.Adornee = nil
+		return
+	end
+
 	if CollectionService:HasTag(Mouse.Target, "Highlightable") then
 		script.Highlight.Adornee = Mouse.Target
 		return
@@ -14,7 +16,6 @@ Mouse.Move:Connect(function()
 		script.Highlight.Adornee = Mouse.Target.Parent
 		return
 	end
-	
+
 	script.Highlight.Adornee = nil
-	
 end)

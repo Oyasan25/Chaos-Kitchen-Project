@@ -8,7 +8,7 @@ CookSound.Looped = true
 
 local TurnedOn = false
 
-ClickDetector.MouseClick:Connect(function(player)
+ClickDetector.MouseClick:Connect(function()
 	if TurnedOn then
 		
 		TurnedOn = false
