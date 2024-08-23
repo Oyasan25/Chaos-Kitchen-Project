@@ -1,28 +1,20 @@
 -- Proxprompt --
-local proximityPrompt = game.Workspace.CookPart.CookStation.ProximityPrompt
+local proximityPrompt = game.Workspace.CookFolder.CookStation.ProximityPrompt
 
 -- Event --
 proximityPrompt.Triggered:Connect(function(player)
 	local character = player.Character
 	local backpack = player:WaitForChild("Backpack")
-	local meatTool = character:FindFirstChild("Meat")
-	local tomatoTool = character:FindFirstChild("Tomato")
-	local doughTool = character:FindFirstChild("Dough")
+	local meatTool = character:FindFirstChild("MeatRaw")
+	local DoughBottomTool = character:FindFirstChild("DoughBottom")
+	local DoughTopTool = character:FindFirstChild("DoughTop")
 
-	if doughTool then
-		doughTool:Destroy()
+	if DoughBottomTool then
+		DoughBottomTool:Destroy()
 		wait(3)
 
-		local cookedDough = game.ServerStorage:FindFirstChild("CookedIngridients").CookedDough:Clone()
-		cookedDough.Parent = backpack
-	end
-
-	if tomatoTool then
-		tomatoTool:Destroy()
-		wait(3)
-
-		local cookedTomato = game.ServerStorage:FindFirstChild("CookedIngridients").CookedTomato:Clone()
-		cookedTomato.Parent = backpack
+		local DoughBottomDone = game.ServerStorage:FindFirstChild("DoneIngridients").DoughBottomDone:Clone()
+		DoughBottomDone.Parent = backpack
 	end
 
 	if meatTool then
@@ -30,7 +22,16 @@ proximityPrompt.Triggered:Connect(function(player)
 
 		wait(3)
 
-		local cookedMeat = game.ServerStorage:FindFirstChild("CookedIngridients").CookedMeat:Clone()
+		local cookedMeat = game.ServerStorage:FindFirstChild("DoneIngridients").MeatDone:Clone()
 		cookedMeat.Parent = backpack
+	end
+
+	if DoughTopTool then
+		DoughTopTool:Destroy()
+
+		wait(3)
+
+		local TopDoughDone = game.ServerStorage:FindFirstChild("DoneIngridients").DoughTopDone:Clone()
+		TopDoughDone.Parent = player.Backpack
 	end
 end)
