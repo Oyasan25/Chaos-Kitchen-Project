@@ -6,7 +6,7 @@ local EndPoint = game.Workspace:WaitForChild("NPCWaypoints"):WaitForChild("Endpo
 local Seat = game.Workspace.NPCWaypoints:WaitForChild("Seat")
 local StartFolder = game.Workspace:WaitForChild("NPCStartPoints"):GetChildren()
 local NPCFolder = game.Workspace:WaitForChild("NPCFolder")
-local NPCFolderRS = RS:WaitForChild("NPCFolder")
+local NPCFolderRS = RS:WaitForChild("NPC")
 
 -- Function to spawn NPC at a random start point
 local function randomStart()
@@ -47,7 +47,9 @@ local function handleNPC(npc)
 
 	-- Assign the ClickDetector event for serving food
 	ClickDetector.MouseClick:Connect(function(player)
-		if Served then return end  -- Prevent serving the same NPC multiple times
+		if Served then
+			return
+		end -- Prevent serving the same NPC multiple times
 
 		local character = player.Character
 		local burgerTool = character:FindFirstChild("Burger") or player.Backpack:FindFirstChild("Burger")
