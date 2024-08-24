@@ -1,12 +1,17 @@
 local ProximityPrompt = game.Workspace.CookFolder.PromptPart.ProximityPrompt
 
 local Burger = {
-	["BottomDough"] = game.Workspace.CookFolder.FoodCraft.BottomDough,
-	["Meat"] = game.Workspace.CookFolder.FoodCraft.Meat,
-	["Tomato"] = game.Workspace.CookFolder.FoodCraft.Tomato,
-	["Salad"] = game.Workspace.CookFolder.FoodCraft.Salad,
-	["Cheese"] = game.Workspace.CookFolder.FoodCraft.Cheese,
-	["TopDough"] = game.Workspace.CookFolder.FoodCraft.TopDough,
+	["BottomDough"] = game.Workspace.CookFolder.FoodCraft.Burger.BottomDough,
+	["Meat"] = game.Workspace.CookFolder.FoodCraft.Burger.Meat,
+	["Tomato"] = game.Workspace.CookFolder.FoodCraft.Burger.Tomato,
+	["Salad"] = game.Workspace.CookFolder.FoodCraft.Burger.Salad,
+	["Cheese"] = game.Workspace.CookFolder.FoodCraft.Burger.Cheese,
+	["TopDough"] = game.Workspace.CookFolder.FoodCraft.Burger.TopDough,
+}
+
+local HotDog = {
+	["Dough"] = game.Workspace.CookFolder.FoodCraft.HotDog.Dough,
+	["Meat"] = game.Workspace.CookFolder.FoodCraft.HotDog.Meat,
 }
 
 ProximityPrompt.Triggered:Connect(function(Player)
@@ -78,5 +83,31 @@ ProximityPrompt.Triggered:Connect(function(Player)
 				end
 			end
 		end
+	end
+end)
+
+ProximityPrompt.Triggered:Connect(function(Player)
+	local HotDogDoughTool = Player.Character:FindFirstChild("HotDogDoughDone")
+	if HotDogDoughTool then
+		HotDogDoughTool:Destroy()
+		local HotDogDough = HotDog["Dough"]
+		HotDogDough.Transparency = 0
+	end
+
+	if not HotDogDoughTool and HotDog["Dough"].Transparency == 0 then
+		local HotDogMeatTool = Player.Character:FindFirstChild("HotDogMeatDone")
+		if HotDogMeatTool then
+			HotDogMeatTool:Destroy()
+			local HotDogMeat = HotDog["Meat"]
+			HotDogMeat.Transparency = 0
+		end
+	end
+
+	if HotDog["Dough"].Transparency == 0 and HotDog["Meat"].Transparency == 0 then
+		HotDog["Dough"].Transparency = 1
+		HotDog["Meat"].Transparency = 1
+		local HotDogTool = game.ServerStorage.DoneFoods.HotDog
+		local HotDogClone = HotDogTool:Clone()
+		HotDogClone.Parent = Player.Backpack
 	end
 end)

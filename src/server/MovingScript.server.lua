@@ -21,9 +21,9 @@ local function randomStart()
 end
 
 -- Function to move NPC to a specified location
-local function MoveToLocation(Humanoid, Torso, targetPosition)
+local function MoveToLocation(Humanoid, targetPosition)
 	local Path = PathfindingService:CreatePath()
-	Path:ComputeAsync(Torso.Position, targetPosition)
+	Path:ComputeAsync(Humanoid.RootPart.Position, targetPosition)
 	local WayPoints = Path:GetWaypoints()
 
 	for _, waypoint in pairs(WayPoints) do
@@ -37,54 +37,30 @@ end
 -- Function to handle the entire NPC sequence
 local function handleNPC(npc)
 	local Humanoid = npc:WaitForChild("Humanoid")
-	local Torso = npc:WaitForChild("Torso")
-	local ClickDetector = npc:WaitForChild("ClickDetector")
-	local Sound = npc:WaitForChild("FoodSound")
-	local Served = false
 
 	-- Move NPC to the seat
-	MoveToLocation(Humanoid, Torso, Seat.Position)
+	MoveToLocation(Humanoid, Seat.Position)
 
-	-- Assign the ClickDetector event for serving food
-	ClickDetector.MouseClick:Connect(function(player)
-		if Served then
-			return
-		end -- Prevent serving the same NPC multiple times
-
-		local character = player.Character
-		local burgerTool = character:FindFirstChild("Burger") or player.Backpack:FindFirstChild("Burger")
-
-		if burgerTool then
-			Sound:Play()
-			wait(0.1)
-			burgerTool:Destroy()
-
-			local leaderstats = player:FindFirstChild("leaderstats")
-			if leaderstats then
-				local Cash = leaderstats:FindFirstChild("Cash")
-				Cash.Value += 50
-				Served = true
-
-				npc:SetAttribute("IsServed", true)
-			end
-		end
-	end)
-
-	-- Wait until served
-	npc:GetAttributeChangedSignal("IsServed"):Connect(function()
-		if npc:GetAttribute("IsServed") then
+	-- Function to move NPC to the endpoint when served
+	local function onServed()
+		if npc:GetAttribute("Served") == true then
+			wait(5)
 			Humanoid.Sit = false
-			wait(0.5)
-
-			-- Move to the endpoint and destroy NPC
-			MoveToLocation(Humanoid, Torso, EndPoint.Position)
+			-- Move NPC to the endpoint and destroy NPC after reaching it
+			MoveToLocation(Humanoid, EndPoint.Position)
 			Humanoid.MoveToFinished:Connect(function()
 				npc:Destroy()
 				-- Spawn a new NPC after the current one is destroyed
 				handleNPC(randomStart())
 			end)
 		end
-	end)
+	end
+
+	-- Listen for changes to the 'Served' attribute
+	npc:GetAttributeChangedSignal("Served"):Connect(onServed)
+
+	-- Initial check in case the NPC is already served
+	onServed()
 end
 
 -- Initial spawn and handling of the first NPC
