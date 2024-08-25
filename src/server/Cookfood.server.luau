@@ -15,7 +15,7 @@ proximityPrompt.Triggered:Connect(function(player)
 		DoughBottomTool:Destroy()
 		wait(3)
 
-		local DoughBottomDone = game.ServerStorage:FindFirstChild("DoneIngridients").BurgerDone.DoughBottomDone:Clone()
+		local DoughBottomDone = game.ServerStorage:FindFirstChild("DoneIngredients").BurgerDone.DoughBottomDone:Clone()
 		DoughBottomDone.Parent = backpack
 	end
 
@@ -24,7 +24,7 @@ proximityPrompt.Triggered:Connect(function(player)
 
 		wait(3)
 
-		local cookedMeat = game.ServerStorage:FindFirstChild("DoneIngridients").BurgerDone.MeatDone:Clone()
+		local cookedMeat = game.ServerStorage:FindFirstChild("DoneIngredients").BurgerDone.MeatDone:Clone()
 		cookedMeat.Parent = backpack
 	end
 
@@ -33,7 +33,7 @@ proximityPrompt.Triggered:Connect(function(player)
 
 		wait(3)
 
-		local TopDoughDone = game.ServerStorage:FindFirstChild("DoneIngridients").BurgerDone.DoughTopDone:Clone()
+		local TopDoughDone = game.ServerStorage:FindFirstChild("DoneIngredients").BurgerDone.DoughTopDone:Clone()
 		TopDoughDone.Parent = player.Backpack
 	end
 
@@ -42,7 +42,7 @@ proximityPrompt.Triggered:Connect(function(player)
 
 		wait(3)
 
-		local HotDogMeatDone = game.ServerStorage:FindFirstChild("DoneIngridients").HotDogDone.HotDogMeatDone:Clone()
+		local HotDogMeatDone = game.ServerStorage:FindFirstChild("DoneIngredients").HotDogDone.HotDogMeatDone:Clone()
 		HotDogMeatDone.Parent = player.Backpack
 	end
 
@@ -51,7 +51,7 @@ proximityPrompt.Triggered:Connect(function(player)
 
 		wait(3)
 
-		local HotDogDoughDone = game.ServerStorage:FindFirstChild("DoneIngridients").HotDogDone.HotDogDoughDone:Clone()
+		local HotDogDoughDone = game.ServerStorage:FindFirstChild("DoneIngredients").HotDogDone.HotDogDoughDone:Clone()
 		HotDogDoughDone.Parent = player.Backpack
 	end
 end)
